@@ -14,7 +14,7 @@ int server_start()
   // Create placeholder for unix domain address
   const struct sockaddr_un address = {
     .sun_family = AF_UNIX,
-    .sun_path   = "/Users/user/Documents/Programming/C/sockets/tunnel.socket"
+    .sun_path   = "./tunnel.socket"
   };
   socklen_t address_len = sizeof(address);
 
