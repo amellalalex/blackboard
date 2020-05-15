@@ -48,8 +48,11 @@ int server_start()
     // Create placeholder for incoming message
     char msg[128];
 
+    // Create placeholder for bytes read
+    int bytes_read = -1;
+
     // Receive message from client
-    while(read(conn, (void *) msg, 128) == -1) // read() failing
+    while((bytes_read = read(conn, (void *) msg, 128)) == -1) // read() failing
     {
       perror("read() failed");
       sleep(1);
@@ -62,7 +65,7 @@ int server_start()
     // }
 
     // Null terminate message
-    msg[strlen(msg)] = '\0';
+    msg[bytes_read] = '\0';
 
     // Print message
     printf("Incoming message from client: %s\n", msg);
