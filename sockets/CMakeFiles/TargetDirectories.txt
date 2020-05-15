@@ -1,0 +1,3 @@
+/Users/user/Documents/Programming/C/sockets/CMakeFiles/rebuild_cache.dir
+/Users/user/Documents/Programming/C/sockets/CMakeFiles/edit_cache.dir
+/Users/user/Documents/Programming/C/sockets/CMakeFiles/sockets.dir

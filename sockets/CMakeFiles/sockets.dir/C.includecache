@@ -1,0 +1,24 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/Users/user/Documents/Programming/C/sockets/src/server.c
+server.h
+/Users/user/Documents/Programming/C/sockets/src/server.h
+
+include/server.h
+stdio.h
+-
+unistd.h
+-
+sys/socket.h
+-
+sys/un.h
+-
+string.h
+-
+

@@ -1,0 +1,1 @@
+/Library/Developer/CommandLineTools/usr/bin/cc  -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX10.15.sdk -Wl,-search_paths_first -Wl,-headerpad_max_install_names  CMakeFiles/sockets.dir/main.c.o CMakeFiles/sockets.dir/server.c.o CMakeFiles/sockets.dir/client.c.o  -o sockets 
