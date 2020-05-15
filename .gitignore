@@ -1,0 +1,5 @@
+*.cmake
+sockets/sockets
+CMakeFiles
+CMakeCache.txt
+Makefile
