@@ -18,7 +18,7 @@ int client_start()
     .sun_path   = "./tunnel.socket"
   };
 
-  // Connect to server 
+  // Connect to server
   if(connect(sock, (struct sockaddr *) &address, sizeof(address)) == -1) // connect() failed
   {
     perror("connect() failed");
