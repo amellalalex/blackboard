@@ -46,15 +46,16 @@ int server_start()
   // Accept incoming connections until none left
   while((conn = accept(sock, (struct sockaddr *) &address, &address_len)) != -1)
   {
-    pthread_t server_listener;
-    pthread_create(&server_listener, NULL)
+    pthread_t server_listen, server_send;
+    pthread_create(&server_listen, NULL, server_start_listening, (void *) &conn);
+    pthread_create(&server_send, NULL, server_start_sending, (void *) &conn);
     if(server_start_listening((void *) &conn) == -1)
     {
       perror("Server start listening failed");
       return -1;
     }
 
-    
+
 /*
     // Create placeholder for incoming message
     char msg[128];
