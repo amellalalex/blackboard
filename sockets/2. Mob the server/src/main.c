@@ -1,33 +1,43 @@
 #include <stdio.h>
 #include <pthread.h>
 #include <unistd.h>
+#include "server.h"
+#include "client.h"
+#include <string.h>
 
-int add_two(void *);
-
-int add_two(void * parameters)
+int main(int argc, char * argv[])
 {
-  int result = (int) *parameters + 2;
-  printf("adding two to %d = %d\n", (int) *parameters, result);
+  // Check argument count
+  if(argc < 2)
+  {
+    fprintf(stderr, "Invalid number of arguments\n");
+    fprintf(stderr, "Try: ./sockets <server/client>\n");
+    return -1;
+  }
 
-  pthread_exit(NULL);
-}
+  // start server
+  if(strcmp(argv[1], "server") == 0)
+  {
+    if(server_start() == -1) // server_start() failed
+    {
+      fprintf(stderr, "server_start() failed\n");
+      return -1;
+    }
+  }
 
-int main()
-{
-  // create placeholder for threads
-  pthread_t first_thread, second_thread;
+  // start client
+  else if(strcmp(argv[1], "client") == 0)
+  {
+    if(client_start() == -1) // client_start() failed
+    {
+      fprintf(stderr, "client_start() failed\n");
+      return -1;
+    }
+  }
 
-  // create placeholder for parameters
-  int first_num = 5, second_num = 3;
+  // invalid argument
+  else
+    fprintf(stderr, "Invalid argument: %s\n", argv[1]);
 
-  // start thread
-  pthread_create(&first_thread, NULL, add_two, (void *) &first_num);
-  pthread_create(&second_thread, NULL, add_two, (void *) &second_num);
-
-  // wait for threads to finish
-  pthread_join(first_thread, NULL);
-  pthread_join(second_thread, NULL);
-
-  // done
   return 0;
 }
