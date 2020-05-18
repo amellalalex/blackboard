@@ -20,7 +20,7 @@ int client_start()
   socklen_t address_len = sizeof(address);
 
   // Connect to server
-  if(connect(sock, (struct sockaddr *) &address, &address_len) == -1) // connect() failed
+  if(connect(sock, (struct sockaddr *) &address, address_len) == -1) // connect() failed
   {
     perror("connect() failed");
     return -1;
