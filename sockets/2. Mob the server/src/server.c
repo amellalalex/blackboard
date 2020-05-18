@@ -123,6 +123,9 @@ void * server_start_listening(void * parameters)
 
   // Print message
   printf("Incoming message from client: %s\n", msg);
+
+  // done
+  pthread_exit(NULL);
 }
 
 void * server_start_sending(void * parameters)
