@@ -140,7 +140,7 @@ void * server_start_sending(void * socket)
 
   if (write(socket, message, 128) == -1) {
     perror("Write to socket failed");
-    return -1;
+    pthread_exit(NULL);
   }
   pthread_exit(NULL);
 }
