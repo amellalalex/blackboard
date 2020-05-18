@@ -131,14 +131,14 @@ void * server_start_listening(void * parameters)
   printf("Incoming message from client: %s\n", msg);
 }
 
-void * server_start_sending(void * socket)
+void * server_start_sending(void * sock)
 {
   char text[128];
   char *message = text;
-  printf("What is the mission for LORIS? \n");
+  printf("What is the message for LORIS? \n");
   fgets(message, 128, stdin);
 
-  if (write(socket, message, 128) == -1) {
+  if (write(sock, message, 128) == -1) {
     perror("Write to socket failed");
     pthread_exit(NULL);
   }
