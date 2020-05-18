@@ -75,6 +75,10 @@ int server_start()
     // Print message
     printf("Incoming message from client: %s\n", msg);
 */
+
+    pthread_join(server_listen, NULL);
+    pthread_join(server_send,   NULL);
+
     // Close connection to client
     close(conn);
   }
