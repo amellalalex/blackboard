@@ -131,7 +131,7 @@ void * server_start_listening(void * parameters)
   printf("Incoming message from client: %s\n", msg);
 }
 
-void * server_start_sending(void * sock)
+void * server_start_sending(void *)
 {
   char text[128];
   char *message = text;
@@ -139,7 +139,7 @@ void * server_start_sending(void * sock)
   fgets(message, 128, stdin);
 
   if (write(sock, message, 128) == -1) {
-    perror("Write to socket failed"); 
+    perror("Write to socket failed");
     pthread_exit(NULL);
   }
   pthread_exit(NULL);
