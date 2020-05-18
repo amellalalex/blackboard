@@ -78,5 +78,21 @@ void * client_start_listening(void * parameters)
 
 void * client_start_sending(void * parameters)
 {
+  // Create placeholder for user message
+  char msg[128];
+
+  while(strcmp(msg, "exit") != 0)
+  {
+    // Ask user for message
+    printf("Enter a message to send to the server: ");
+    fgets(msg, 128, stdin);
+
+    // Send message to server
+    if(write(sock, msg, 128) == -1) // write() failed
+    {
+      perror("write() failed");
+      pthread_exit(NULL);
+    }
+  }
   pthread_exit(NULL);
 }
