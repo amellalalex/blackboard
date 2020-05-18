@@ -131,7 +131,7 @@ void * server_start_listening(void * parameters)
   printf("Incoming message from client: %s\n", msg);
 }
 
-void * server_start_sending(void *)
+void * server_start_sending(void * parameters)
 {
   char text[128];
   char *message = text;
