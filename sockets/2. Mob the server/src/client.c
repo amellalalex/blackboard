@@ -56,7 +56,7 @@ void * client_start_listening(void * parameters)
   char msg[128];
 
   // Listen for incoming data
-  while((bytes_read = read(sock, (void *) msg, 128)) != -1)
+  while((bytes_read = read(sock, (void *) msg, 128)) > 0)
   {
     // Add string termination character
     msg[bytes_read] = '\0';
