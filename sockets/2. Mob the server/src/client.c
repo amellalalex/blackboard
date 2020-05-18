@@ -1,10 +1,10 @@
 #include "client.h"
 
+// Create placeholder for socket
+static int sock;
+
 int client_start()
 {
-  // Create placeholder for socket
-  int sock;
-
   // Create socket
   if((sock = socket(AF_UNIX, SOCK_STREAM, 0)) == -1) // socket() failed
   {
@@ -29,8 +29,8 @@ int client_start()
   pthread_t listener, sender;
 
   // Start threads
-  pthread_create(&listener, NULL, client_start_listening, (void *) &sock));
-  pthread_create(&sender,   NULL, client_start_sending,   (void *) &sock));
+  pthread_create(&listener, NULL, client_start_listening, (void *) &sock);
+  pthread_create(&sender,   NULL, client_start_sending,   (void *) &sock);
 
   // Wait for threads to terminate
   pthread_join(listener,  NULL);

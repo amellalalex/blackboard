@@ -1,5 +1,4 @@
 #include "server.h"
-#include <pthread.h>
 
 static int sock;
 

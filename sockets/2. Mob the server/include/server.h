@@ -6,6 +6,7 @@
 #include <sys/socket.h>
 #include <sys/un.h>
 #include <string.h>
+#include <pthread.h>
 
 // Methods
 int server_start();
