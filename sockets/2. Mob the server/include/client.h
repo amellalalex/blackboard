@@ -8,8 +8,11 @@
 #include <string.h>
 #include <pthread.h>
 
+// Methods
 int client_start();
-void * client_start_listening(void * parameters);
-void * client_start_sending(void * parameters);
+
+// Threads
+void * client_start_listening (void * parameters);
+void * client_start_sending   (void * parameters);
 
 #endif /* end of include guard: CLIENT_H */

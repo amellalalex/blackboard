@@ -7,6 +7,11 @@
 #include <sys/un.h>
 #include <string.h>
 
+// Methods
 int server_start();
+
+// Threads
+void * server_start_listening (void * parameters);
+void * server_start_sending   (void * parameters);
 
 #endif /* end of include guard: SERVER_H */

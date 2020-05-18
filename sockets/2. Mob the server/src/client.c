@@ -57,7 +57,14 @@ void * client_start_listening(void * parameters)
   // Listen for incoming data
   while((bytes_read = read(sock, (void *) msg, 128)) != -1)
   {
+    // Add string termination character
+    msg[bytes_read] = '\0';
 
+    // Prompt incoming message to user
+    printf("Incoming message: %s\n", msg);
+
+    // Clean placeholder
+    for(int x = 0; x < 128; x++) msg[x] = 0;
   }
 
   // Check read status
