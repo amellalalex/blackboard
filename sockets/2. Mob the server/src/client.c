@@ -17,9 +17,10 @@ int client_start()
     .sun_family = AF_UNIX,
     .sun_path   = "./tunnel.socket"
   };
+  socklen_t address_len = sizeof(address);
 
   // Connect to server
-  if(connect(sock, (struct sockaddr *) &address, sizeof(address)) == -1) // connect() failed
+  if(connect(sock, (struct sockaddr *) &address, &address_len) == -1) // connect() failed
   {
     perror("connect() failed");
     return -1;
