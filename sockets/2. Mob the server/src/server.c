@@ -134,16 +134,20 @@ void * server_start_listening(void * parameters)
 
 void * server_start_sending(void * parameters)
 {
+  //Turn conn pointer back to int
   int conn = *((int *) parameters);
 
+  //create placeholder for input
   char text[128];
   char *message = text;
   printf("What is the message for LORIS? \n");
   fgets(message, 128, stdin);
 
+  //send message through connection
   if (write(conn, message, 128) == -1) {
     perror("Write to socket failed");
     pthread_exit(NULL);
   }
+  //done
   pthread_exit(NULL);
 }
