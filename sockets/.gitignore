@@ -3,3 +3,5 @@ sockets
 CMakeFiles
 CMakeCache.txt
 Makefile
+ipc
+client
