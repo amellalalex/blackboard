@@ -6,11 +6,20 @@
 *
 */
 
+// Standard C Libraries
 #include <stdio.h>
 #include <sys/socket.h>
 #include <sys/un.h>
 #include <string.h>
 #include <unistd.h>
+#include <pthread.h>
+
+// Create socket placeholder
+static int sock;
+
+// Threads
+static void * start_listening();
+static void * start_sending();
 
 int main(int argc, char * argv[])
 {
@@ -24,15 +33,19 @@ int main(int argc, char * argv[])
   // Create placeholder for client name
   char * name = argv[1];
 
+  // Check name length
+  if(strlen(name) > 3) // name is too long
+  {
+    fprintf(stderr, "name must be 3 characters long\n");
+    return -1;
+  }
+
   // Create placeholder for socket address
   const struct sockaddr_un address = {
     .sun_family = AF_UNIX,
     .sun_path   = "./socket.socket"
   };
   socklen_t address_len = sizeof(address);
-
-  // Create socket placeholder
-  int sock;
 
   // Initiate socket
   if((sock = socket(AF_UNIX, SOCK_STREAM, 0)) == -1) // socket() failed
@@ -55,6 +68,23 @@ int main(int argc, char * argv[])
     return -1;
   }
 
+  // Start listener and sender threads
+  pthread_t listener, sender;
+  pthread_create(&listener, NULL, start_listening, NULL);
+  pthread_create(&sender, NULL, start_sending, NULL);
+
+  // Wait for sending thread to finish
+  pthread_join(sender, NULL);
+
+  // Close socket connection
+  close(sock);
+
+  // done
+  return 0;
+}
+
+static void * start_listening()
+{
   // Create placeholder for incoming messages
   char msg[128];
   int msg_len = -1;
@@ -69,12 +99,36 @@ int main(int argc, char * argv[])
     if(strcmp(msg, "exit") == 0) break;
 
     // Prompt user with incoming message
-    printf("Incoming message: %s\n", msg);
+    printf("\rIncoming message: %s\nEnter message for IPC: ", msg);
+    fflush(stdout);
   }
 
-  // Close socket connection
-  close(sock);
-
   // done
-  return 0;
+  pthread_exit(NULL);
+}
+
+static void * start_sending()
+{
+  for(;;)
+  {
+    // Create placeholder for request
+    char req[128];
+
+    // Get input from user
+    printf("\rEnter request for IPC: ");
+    fgets(req, 128, stdin);
+
+    // Convert newline character to null termination
+    for(int x = 0; x < strlen(req); x++) if(req[x] == '\n') req[x] = '\0';
+
+    // Send request to IPC
+    if(write(sock, req, strlen(req)) < strlen(req)) // write() failed
+    {
+      perror("write() failed");
+      pthread_exit(NULL);
+    }
+
+    // Check if request was 'exit'
+    if(strcmp(req, "exit") == 0) pthread_exit(NULL);
+  }
 }
