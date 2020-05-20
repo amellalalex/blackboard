@@ -27,5 +27,6 @@ int get_free_client();
 
 // Thread methods
 void * handle_client_requests(void * client);
+// void * handle_client_watchdog(void * thread);
 
 #endif /* end of include guard: SOCKETS_CROWDCONTROL_INCLUDE_CLIENT_HANDLER_H */

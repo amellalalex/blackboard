@@ -12,7 +12,36 @@
 // Clients array placeholder
 static client_t  * clients = NULL;
 
-void * handle_client_requests(void * p)
+// Sets clients array pointer
+void set_clients(client_t * clients_)
+{
+  // Set local clients to clients parameter
+  clients = clients_;
+}
+
+// Returns index of next available client placeholder.
+// Returns -1 if no client placeholders available.
+int get_free_client()
+{
+  // Ensure clients array is not null
+  if(clients == NULL)
+  {
+    fprintf(stderr, "clients array placeholder for client handler not initialized. refusing to proceed.\n");
+    return -1;
+  }
+
+  // Parse through clients
+  for(int x = 0; x < MAX_NUM_CLI; x++)
+  {
+    if(clients[x].conn == -1) return x;
+  }
+
+  // done, nothing found
+  return -1;
+}
+
+// Processes client requests
+void * handle_client_requests(void * client_)
 {
   // Check if clients array placeholders are initialized
   if(clients == NULL)
@@ -22,7 +51,7 @@ void * handle_client_requests(void * p)
   }
 
   // Create placeholder for clients pointer
-  client_t * client = (client_t *) p;
+  client_t * client = (client_t *) client_;
 
   // Create placeholders for client request
   char  req[MAX_MSG_LEN];
@@ -91,34 +120,24 @@ void * handle_client_requests(void * p)
   // Close connection to client
   close(client->conn);
 
+  // Free client placeholder
+  client->conn = -1;
+
   // done
   pthread_exit(NULL);
 }
 
-// Sets clients array pointer
-void set_clients(client_t * clients_)
-{
-  // Set local clients to clients parameter
-  clients = clients_;
-}
-
-// Returns index of next available client placeholder.
-// Returns -1 if no client placeholders available.
-int get_free_client()
-{
-  // Ensure clients array is not null
-  if(clients == NULL)
-  {
-    fprintf(stderr, "clients array placeholder for client handler not initialized. refusing to proceed.\n");
-    return -1;
-  }
-
-  // Parse through clients
-  for(int x = 0; x < MAX_NUM_CLI; x++)
-  {
-    if(clients[x].conn == -1) return x;
-  }
-
-  // done, nothing found
-  return -1;
-}
+// // Awaits for client thread to terminate and frees client placeholder
+// void * handle_client_watchdog(void * thread_)
+// {
+//   // Create placeholder for client thread
+//   pthread_t * thread = (pthread_t *) thread_;
+//
+//   // Wait for thread to terminate
+//   pthread_join(*thread, NULL);
+//
+//   // Free client placeholder
+//
+//   // done
+//   pthread_exit(NULL);
+// }

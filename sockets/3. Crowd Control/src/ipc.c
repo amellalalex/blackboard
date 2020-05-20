@@ -26,7 +26,7 @@ static client_t clients[MAX_NUM_CLI];
 static pthread_t  client_handlers[MAX_NUM_CLI];
 
 // Threads
-static void * watchdog();
+// static void * watchdog(void * client);
 
 int main()
 {
@@ -116,8 +116,6 @@ int main()
       continue;
     }
   }
-
-  // IDEA: watchdog thread to wait for threads to terminate?
 
   // Close remaining client connections
   for(int x = 0; x < MAX_NUM_CLI; x++) if(clients[x].conn != -1) close(clients[x].conn);
