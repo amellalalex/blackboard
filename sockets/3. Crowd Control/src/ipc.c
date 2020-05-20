@@ -21,7 +21,6 @@
 
 // Placeholder for clients
 static client_t clients[MAX_NUM_CLI];
-static int      clients_len;
 
 // Placeholder for client handlers
 static pthread_t  client_handlers[MAX_NUM_CLI];
@@ -71,33 +70,18 @@ int main()
   }
 
   // Initialize client placeholders
-  for(int x = 0; x < MAX_NUM_CLI; x++) clients[x].conn = 0;
-  clients_len = 0;
+  for(int x = 0; x < MAX_NUM_CLI; x++) clients[x].conn = -1;
 
   // Initialize client handlers counter
   client_handlers_len = 0;
 
   // Initialize client placeholders for client handlers
   set_clients(clients);
-  set_clients_len(&clients_len);
 
   // Accept incoming connections
   int conn;
   while((conn = accept(sock, (struct sockaddr *) &address, &address_len)) != -1)
   {
-    // Check if number of clients is within limit
-    if(clients_len >= MAX_NUM_CLI) // wait until an opening appears
-    {
-      for(;;)
-      {
-        // Sleep for a second
-        sleep(1);
-
-        // Check value
-        if(clients_len < MAX_NUM_CLI) break;
-      }
-    }
-
     // Create placeholder for client name
     char name[3];
 
@@ -109,18 +93,12 @@ int main()
       continue;
     }
 
-    // Store client attributes in placeholder
-    clients[clients_len].conn = conn;
-    strcpy(clients[clients_len].name, name);
 
-    // Update client count
-    clients_len++;
 
     // Start handler thread
     if(pthread_create(&client_handlers[next_cli], NULL, handle_client_requests, (void *) &clients[next_cli]) != 0) // pthread_create() failed
     {
       perror("pthread_create() failed");
-      fprintf(stderr, "failed to start client handler #%d, skipping to next one...\n", client_handlers_len);
       continue;
     }
 
@@ -130,11 +108,8 @@ int main()
 
   // IDEA: watchdog thread to wait for threads to terminate?
 
-  // Wait for client handlers to terminate
-  for(int x = 0; x < client_handlers_len; x++) pthread_join(client_handlers[x], NULL);
-
   // Close remaining client connections
-  for(int x = 0; x < clients_len; x++) if(clients[x].conn != 0) close(clients[x].conn);
+  for(int x = 0; x < MAX_NUM_CLI; x++) if(clients[x].conn != -1) close(clients[x].conn);
 
   // Close socket
   close(sock);

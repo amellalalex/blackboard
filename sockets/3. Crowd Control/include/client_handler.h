@@ -21,7 +21,6 @@
 
 // Set methods
 void set_clients(client_t * clients);
-void set_clients_len(int * clients_len);
 
 // Get methods
 int get_free_client();

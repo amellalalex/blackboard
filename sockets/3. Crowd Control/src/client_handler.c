@@ -10,13 +10,12 @@
 #include "client_handler.h"
 
 // Clients array placeholder
-static client_t  * clients      = NULL;
-static int       * clients_len  = NULL;
+static client_t  * clients = NULL;
 
 void * handle_client_requests(void * p)
 {
   // Check if clients array placeholders are initialized
-  if(clients == NULL || clients_len == NULL)
+  if(clients == NULL)
   {
     fprintf(stderr, "clients array placeholder for client handler not initialized. refusing to proceed.\n");
     pthread_exit(NULL);
@@ -54,7 +53,7 @@ void * handle_client_requests(void * p)
     int dest_client_index = -1;
 
     // Identify destination client within clients array
-    for(int x = 0; x < *clients_len; x++)
+    for(int x = 0; x < MAX_NUM_CLI; x++)
     {
       // Check if name matches
       if(strncmp((clients + x)->name, dest_name, 3) == 0) // name matches
@@ -103,19 +102,12 @@ void set_clients(client_t * clients_)
   clients = clients_;
 }
 
-// Sets clients_len pointer
-void set_clients_len(int * clients_len_)
-{
-  // Set local clients_len to clients_len parameter
-  clients_len = clients_len_;
-}
-
 // Returns index of next available client placeholder.
 // Returns -1 if no client placeholders available.
 int get_free_client()
 {
-  // Ensure clients array and clients_len are not null
-  if(clients == NULL || clients_len == NULL)
+  // Ensure clients array is not null
+  if(clients == NULL)
   {
     fprintf(stderr, "clients array placeholder for client handler not initialized. refusing to proceed.\n");
     return -1;
