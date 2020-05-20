@@ -13,7 +13,7 @@
 static client_t  * clients      = NULL;
 static int       * clients_len  = NULL;
 
-void * handle_client(void * p)
+void * handle_client_requests(void * p)
 {
   // Check if clients array placeholders are initialized
   if(clients == NULL || clients_len == NULL)

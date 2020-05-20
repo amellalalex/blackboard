@@ -24,6 +24,6 @@ void set_clients(client_t * clients);
 void set_clients_len(int * clients_len);
 
 // Thread methods
-void * handle_client(void *);
+void * handle_client_requests(void * client);
 
 #endif /* end of include guard: SOCKETS_CROWDCONTROL_INCLUDE_CLIENT_HANDLER_H */

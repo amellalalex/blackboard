@@ -117,7 +117,7 @@ int main()
     clients_len++;
 
     // Start handler thread
-    if(pthread_create(&client_handlers[client_handlers_len], NULL, handle_client, (void *) &clients[client_handlers_len]) != 0) // pthread_create() failed
+    if(pthread_create(&client_handlers[next_cli], NULL, handle_client_requests, (void *) &clients[next_cli]) != 0) // pthread_create() failed
     {
       perror("pthread_create() failed");
       fprintf(stderr, "failed to start client handler #%d, skipping to next one...\n", client_handlers_len);
