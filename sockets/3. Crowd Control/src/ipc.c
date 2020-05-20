@@ -23,7 +23,7 @@
 static client_t clients[MAX_NUM_CLI];
 
 // Placeholder for client handlers
-static pthread_t  client_handlers[MAX_NUM_CLI];
+static pthread_t client_handlers[MAX_NUM_CLI];
 
 int main()
 {
