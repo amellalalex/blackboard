@@ -116,7 +116,7 @@ int get_free_client()
   // Parse through clients
   for(int x = 0; x < MAX_NUM_CLI; x++)
   {
-    if(clients[x]->conn == -1) return x;
+    if(clients[x].conn == -1) return x;
   }
 
   // done, nothing found
