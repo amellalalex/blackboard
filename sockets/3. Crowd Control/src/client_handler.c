@@ -85,7 +85,7 @@ void * handle_client_requests(void * client_)
     for(int x = 0; x < MAX_NUM_CLI; x++)
     {
       // Check if name matches
-      if(strncmp((clients + x)->name, dest_name, 3) == 0) // name matches
+      if(strncmp(clients[x].name, dest_name, 3) == 0) // name matches
       {
         dest_client_index = x;
         break;
@@ -109,7 +109,7 @@ void * handle_client_requests(void * client_)
     message[strlen(req)] = '\0';
 
     // Send message to destination client
-    if(write((clients + dest_client_index)->conn, message, strlen(message)) < strlen(message)) // write() failed
+    if(write(clients[dest_client_index].conn, message, strlen(message)) < strlen(message)) // write() failed
     {
       perror("write() failed");
       fprintf(stderr, "wrote %d/%d bytes from clients %.3s to %.3s. skipping to next client request.\n");
