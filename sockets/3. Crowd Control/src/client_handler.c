@@ -60,6 +60,7 @@ void * handle_client(void * p)
       if(strncmp((client_handler_clients + x)->name, dest_name, 3) == 0) // name matches
       {
         dest_client_index = x;
+        break;
       }
     }
 
@@ -70,8 +71,14 @@ void * handle_client(void * p)
       continue;
     }
 
+    // Front message with request sender
+    sprintf(message, "%s ", client->name);
+
     // Extract message from request
-    for(int x = 4; x < req_len; x++) message[x-4] = req[x];
+    for(int x = 4; x < strlen(req); x++) message[x] = req[x];
+
+    // Add null termination character to message
+    message[strlen(req)] = '\0';
 
     // Send message to destination client
     if(write((client_handler_clients + dest_client_index)->conn, message, strlen(message)) < strlen(message)) // write() failed
