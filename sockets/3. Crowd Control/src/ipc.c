@@ -93,12 +93,30 @@ int main()
       continue;
     }
 
+    // Find next available client placeholder
+    int next_cli;
+    if((next_cli = get_free_client()) == -1) // no free client found
+    {
+      // Wait until client placeholder is free
+      for(;;)
+      {
+        // Wait a second
+        sleep(1);
 
+        // Check for free client
+        if((next_cli = get_free_client()) != -1) break;
+      }
+    }
+
+    // Store client attributes in placeholder
+    clients[next_cli].conn = conn;
+    strcpy(clients[next_cli].name, name);
 
     // Start handler thread
     if(pthread_create(&client_handlers[next_cli], NULL, handle_client_requests, (void *) &clients[next_cli]) != 0) // pthread_create() failed
     {
       perror("pthread_create() failed");
+      fprintf(stderr, "failed to start client handler #%d, skipping to next one...\n", next_cli);
       continue;
     }
 
