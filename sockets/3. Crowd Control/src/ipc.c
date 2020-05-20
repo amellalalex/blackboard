@@ -24,7 +24,6 @@ static client_t clients[MAX_NUM_CLI];
 
 // Placeholder for client handlers
 static pthread_t  client_handlers[MAX_NUM_CLI];
-static int        client_handlers_len;
 
 // Threads
 static void * watchdog();
@@ -72,9 +71,6 @@ int main()
   // Initialize client placeholders
   for(int x = 0; x < MAX_NUM_CLI; x++) clients[x].conn = -1;
 
-  // Initialize client handlers counter
-  client_handlers_len = 0;
-
   // Initialize client placeholders for client handlers
   set_clients(clients);
 
@@ -119,9 +115,6 @@ int main()
       fprintf(stderr, "failed to start client handler #%d, skipping to next one...\n", next_cli);
       continue;
     }
-
-    // Update client handlers counter
-    client_handlers_len++;
   }
 
   // IDEA: watchdog thread to wait for threads to terminate?
