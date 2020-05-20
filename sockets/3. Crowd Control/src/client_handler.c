@@ -109,3 +109,24 @@ void set_clients_len(int * clients_len_)
   // Set local clients_len to clients_len parameter
   clients_len = clients_len_;
 }
+
+// Returns index of next available client placeholder.
+// Returns -1 if no client placeholders available.
+int get_free_client()
+{
+  // Ensure clients array and clients_len are not null
+  if(clients == NULL || clients_len == NULL)
+  {
+    fprintf(stderr, "clients array placeholder for client handler not initialized. refusing to proceed.\n");
+    return -1;
+  }
+
+  // Parse through clients
+  for(int x = 0; x < MAX_NUM_CLI; x++)
+  {
+    if(clients[x]->conn == -1) return x;
+  }
+
+  // done, nothing found
+  return -1;
+}
