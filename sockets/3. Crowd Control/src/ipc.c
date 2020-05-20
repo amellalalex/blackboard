@@ -7,6 +7,7 @@
 */
 
 // Project Headers
+#include "settings.h"
 #include "client_t.h"
 #include "client_handler.h"
 
@@ -19,12 +20,15 @@
 #include <pthread.h>
 
 // Placeholder for clients
-static client_t clients[5];
+static client_t clients[MAX_NUM_CLI];
 static int      clients_len;
 
 // Placeholder for client handlers
-static pthread_t  client_handlers[5];
+static pthread_t  client_handlers[MAX_NUM_CLI];
 static int        client_handlers_len;
+
+// Threads
+static void * watchdog();
 
 int main()
 {
@@ -59,15 +63,15 @@ int main()
     return -1;
   }
 
-  // Start listening for up to 5 incoming clients
-  if(listen(sock, 5) == -1) // listen() failed
+  // Start listening for up to MAX_NUM_CLI incoming clients
+  if(listen(sock, MAX_NUM_CLI) == -1) // listen() failed
   {
     perror("listen() failed");
     return -1;
   }
 
   // Initialize client placeholders
-  for(int x = 0; x < 5; x++) clients[x].conn = 0;
+  for(int x = 0; x < MAX_NUM_CLI; x++) clients[x].conn = 0;
   clients_len = 0;
 
   // Initialize client handlers counter
@@ -81,6 +85,19 @@ int main()
   int conn;
   while((conn = accept(sock, (struct sockaddr *) &address, &address_len)) != -1)
   {
+    // Check if number of clients is within limit
+    if(clients_len >= MAX_NUM_CLI) // wait until an opening appears
+    {
+      for(;;)
+      {
+        // Sleep for a second
+        sleep(1);
+
+        // Check value
+        if(clients_len < MAX_NUM_CLI) break;
+      }
+    }
+
     // Create placeholder for client name
     char name[3];
 

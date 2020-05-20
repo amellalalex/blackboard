@@ -10,6 +10,7 @@
 #define SOCKETS_CROWDCONTROL_INCLUDE_CLIENT_HANDLER_H
 
 // Project Headers
+#include "settings.h"
 #include "client_t.h"
 
 // Standard C Libraries

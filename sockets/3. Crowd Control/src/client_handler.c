@@ -26,13 +26,13 @@ void * handle_client(void * p)
   client_t * client = (client_t *) p;
 
   // Create placeholders for client request
-  char  req[128];
+  char  req[MAX_MSG_LEN];
   int   req_len;
   char  dest_name[3];
-  char  message[128];
+  char  message[MAX_MSG_LEN];
 
   // Handle incoming requests from client
-  while((req_len = read(client->conn, req, 128)) > 0)
+  while((req_len = read(client->conn, req, MAX_MSG_LEN)) > 0)
   {
     // Check if request is at least <3 char> + space + <1 char> = 5 in length
     if(req_len < 4) // request is too short
