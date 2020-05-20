@@ -18,9 +18,9 @@
 #include <string.h>
 #include <stdio.h>
 
-// Clients array placeholder
-extern client_t * client_handler_clients;
-extern int      * client_handler_clients_len;
+// Set methods
+void set_clients(client_t * clients);
+void set_clients_len(int * clients_len);
 
 // Thread methods
 void * handle_client(void *);

@@ -74,8 +74,8 @@ int main()
   client_handlers_len = 0;
 
   // Initialize client placeholders for client handlers
-  client_handler_clients = clients;
-  client_handler_clients_len = &clients_len;
+  set_clients(clients);
+  set_clients_len(&clients_len);
 
   // Accept incoming connections
   int conn;
@@ -125,11 +125,3 @@ int main()
   // done
   return 0;
 }
-
-// // Returns pointer to client if client found with matching name.
-// // Return NULL if no such client found.
-// client_t * get_client(char * name)
-// {
-//   for(int x = 0; x < clients_len; x++) if(strcmp(clients[x].name, name) == 0) return &clients[x];
-//   return NULL;
-// }

@@ -10,13 +10,13 @@
 #include "client_handler.h"
 
 // Clients array placeholder
-client_t  *  client_handler_clients      = NULL;
-int       *   client_handler_clients_len  = NULL;
+static client_t  * clients      = NULL;
+static int       * clients_len  = NULL;
 
 void * handle_client(void * p)
 {
   // Check if clients array placeholders are initialized
-  if(client_handler_clients == NULL || client_handler_clients_len == NULL)
+  if(clients == NULL || clients_len == NULL)
   {
     fprintf(stderr, "clients array placeholder for client handler not initialized. refusing to proceed.\n");
     pthread_exit(NULL);
@@ -54,10 +54,10 @@ void * handle_client(void * p)
     int dest_client_index = -1;
 
     // Identify destination client within clients array
-    for(int x = 0; x < *client_handler_clients_len; x++)
+    for(int x = 0; x < *clients_len; x++)
     {
       // Check if name matches
-      if(strncmp((client_handler_clients + x)->name, dest_name, 3) == 0) // name matches
+      if(strncmp((clients + x)->name, dest_name, 3) == 0) // name matches
       {
         dest_client_index = x;
         break;
@@ -81,7 +81,7 @@ void * handle_client(void * p)
     message[strlen(req)] = '\0';
 
     // Send message to destination client
-    if(write((client_handler_clients + dest_client_index)->conn, message, strlen(message)) < strlen(message)) // write() failed
+    if(write((clients + dest_client_index)->conn, message, strlen(message)) < strlen(message)) // write() failed
     {
       perror("write() failed");
       fprintf(stderr, "wrote %d/%d bytes from clients %.3s to %.3s. skipping to next client request.\n");
@@ -94,4 +94,18 @@ void * handle_client(void * p)
 
   // done
   pthread_exit(NULL);
+}
+
+// Sets clients array pointer
+void set_clients(client_t * clients_)
+{
+  // Set local clients to clients parameter
+  clients = clients_;
+}
+
+// Sets clients_len pointer
+void set_clients_len(int * clients_len_)
+{
+  // Set local clients_len to clients_len parameter
+  clients_len = clients_len_;
 }
