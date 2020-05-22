@@ -126,18 +126,3 @@ void * handle_client_requests(void * client_)
   // done
   pthread_exit(NULL);
 }
-
-// // Awaits for client thread to terminate and frees client placeholder
-// void * handle_client_watchdog(void * thread_)
-// {
-//   // Create placeholder for client thread
-//   pthread_t * thread = (pthread_t *) thread_;
-//
-//   // Wait for thread to terminate
-//   pthread_join(*thread, NULL);
-//
-//   // Free client placeholder
-//
-//   // done
-//   pthread_exit(NULL);
-// }
