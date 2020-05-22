@@ -122,10 +122,13 @@ static void * start_sending()
     for(int x = 0; x < strlen(req); x++) if(req[x] == '\n') req[x] = '\0';
 
     // Send request to IPC
-    if(write(sock, req, strlen(req)) < strlen(req)) // write() failed
+    for(int x = 0; x < 10; x++)
     {
-      perror("write() failed");
-      pthread_exit(NULL);
+      if(write(sock, req, strlen(req)) < strlen(req)) // write() failed
+      {
+        perror("write() failed");
+        pthread_exit(NULL);
+      }
     }
 
     // Check if request was 'exit'

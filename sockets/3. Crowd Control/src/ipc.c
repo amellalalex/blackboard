@@ -37,6 +37,15 @@ int main()
     return -1;
   }
 
+  FILE *socket_file;
+  if (socket_file = fopen("./socket.socket", "r")) {
+    fclose(socket_file);
+  } else {
+    socket_file = fopen("./socket.socket", "w+");
+    printf("The file, socket.socket, has been created");
+    fclose(socket_file);
+  }
+
   // Create placeholder for socket address
   const struct sockaddr_un address = {
     .sun_family = AF_UNIX,
