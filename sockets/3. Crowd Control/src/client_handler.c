@@ -124,5 +124,4 @@ void * handle_client_requests(void * client_)
   client->conn = -1;
 
   // done
-  pthread_exit(NULL);
 }
