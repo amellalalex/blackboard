@@ -33,7 +33,5 @@ SET("SRC_TEST" "test.c")
 ADD_EXECUTABLE(${BIN_TEST} ${SRC_TEST})
 TARGET_LINK_LIBRARIES(${BIN_TEST}
  "cmocka"
-)
-TARGET_COMPILE_OPTIONS(${BIN_TEST} BEFORE PUBLIC
-  "-Wl,--wrap=read,--wrap=write"
+ "-Wl,--wrap=read,--wrap=write"
 )
