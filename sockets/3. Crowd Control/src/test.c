@@ -95,6 +95,7 @@ static void test_handle_client_requests()
   will_return(__wrap_read, test_req);                           // mocked request
   will_return(__wrap_read, strlen(test_req));                   // return value
 
+  // Setup expected values for mock write()
   will_return(__wrap_write, -1);
 
   // Run function
