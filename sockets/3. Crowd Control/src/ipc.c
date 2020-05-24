@@ -37,10 +37,12 @@ int main()
     return -1;
   }
 
+  //Create socket pointer placeholder
   FILE *socket_file;
-  if (socket_file = fopen("./socket.socket", "r")) {
+  //Check if the socket.socket file exists
+  if (socket_file = fopen("./socket.socket", "r")) { //yes so close the file
     fclose(socket_file);
-  } else {
+  } else { //no so create the file and then close it
     socket_file = fopen("./socket.socket", "w+");
     printf("The file, socket.socket, has been created");
     fclose(socket_file);
