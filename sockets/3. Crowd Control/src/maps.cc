@@ -52,7 +52,7 @@ int serialize_map(std::map<string, string> map, char ** serial_out)
 
   // Allocate memory for serialized map
   char * result;
-  if((result = malloc(map_data_len)) == NULL) // malloc() failed
+  if((result = (char *) malloc(map_data_len)) == NULL) // malloc() failed
   {
     cout << "Failed to allocate memory" << endl;
   }
