@@ -10,7 +10,7 @@
 #include "client_handler.h"
 
 // Clients array placeholder
-static client_t  * clients = NULL;
+static client_t * clients = NULL;
 
 // Sets clients array pointer
 void set_clients(client_t * clients_)
