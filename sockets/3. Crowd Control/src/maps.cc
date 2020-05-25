@@ -15,9 +15,9 @@ int main()
   map<string, string> coordinates;
 
   // Insert key-value pairs
-  coordinates.insert(pair<string, string>("45.643490238N", "23.3490238E"));
-  coordinates.insert(pair<string, string>("22.983823298N", "11.2930982E"));
-  coordinates.insert(pair<string, string>("88.643490238N", "54.3490238E"));
+  coordinates.insert(pair<string, string>("base",     "45.232903292032N, 23.3490238E"));
+  coordinates.insert(pair<string, string>("landing",  "45.332323N, 11.2930982E"));
+  coordinates.insert(pair<string, string>("ocean",    "23.3423232N, 54.3490238E"));
 
   // Iterate through key-value pairs
   map<string, string>::iterator iter;

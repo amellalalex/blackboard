@@ -121,9 +121,6 @@ static void test_handle_client_requests()
 
   // Run function
   handle_client_requests(&test_client);
-
-
-
 }
 
 int main()
