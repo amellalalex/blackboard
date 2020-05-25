@@ -84,6 +84,9 @@ void * handle_client_requests(void * client_)
     // Identify destination client within clients array
     for(int x = 0; x < MAX_NUM_CLI; x++)
     {
+      // Check if connection active
+      if(clients[x].conn == -1) continue; // skip
+
       // Check if name matches
       if(strncmp(clients[x].name, dest_name, 3) == 0) // name matches
       {
