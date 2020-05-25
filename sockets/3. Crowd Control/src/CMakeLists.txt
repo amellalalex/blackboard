@@ -35,3 +35,8 @@ TARGET_LINK_LIBRARIES(${BIN_TEST}
  "cmocka"
  "-Wl,--wrap=read,--wrap=write"
 )
+
+# Maps binary (TEMPORARY)
+SET("BIN_MAPS" "maps")
+SET("SRC_MAPS" "maps.cc")
+ADD_EXECUTABLE(${BIN_MAPS} ${SRC_MAPS})
