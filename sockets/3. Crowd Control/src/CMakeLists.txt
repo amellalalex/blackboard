@@ -4,7 +4,13 @@ PROJECT("sockets")
 # Header files
 INCLUDE_DIRECTORIES(
   "${PROJECT_SOURCE_DIR}/../include"
+  "${PROJECT_SOURCE_DIR}/../include/cmocka"
 )
+
+# CMocka library
+SET("LIB_CMOCKA" "cmocka")
+SET("SRC_CMOCKA" "cmocka/cmocka.c")
+ADD_LIBRARY(${LIB_CMOCKA} STATIC ${SRC_CMOCKA})
 
 # IPC binary
 SET("BIN_IPC" "ipc")
@@ -32,7 +38,7 @@ SET("BIN_TEST" "test")
 SET("SRC_TEST" "test.c")
 ADD_EXECUTABLE(${BIN_TEST} ${SRC_TEST})
 TARGET_LINK_LIBRARIES(${BIN_TEST}
- "cmocka"
+ ${LIB_CMOCKA}
  "-Wl,--wrap=read,--wrap=write"
 )
 
