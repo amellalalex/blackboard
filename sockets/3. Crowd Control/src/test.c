@@ -81,7 +81,7 @@ static void test_handle_client_requests()
   {
     // Generate client name
     char name[3];
-    sprintf(name, "%.3d", x);
+    sprintf(name, "%03d", x);
 
     // Set client attributes
     test_clients[x].conn = x;
@@ -93,8 +93,8 @@ static void test_handle_client_requests()
 
   // Create placeholder for mocked client names
   char test_src_name[3], test_dest_name[3];
-  sprintf(test_src_name, "%.3d", expected_src_index);
-  sprintf(test_dest_name, "%.3d", expected_dest_index);
+  sprintf(test_src_name, "%03d", expected_src_index);
+  sprintf(test_dest_name, "%03d", expected_dest_index);
 
   // Init mocked client
   client_t test_client = test_clients[expected_src_index];
@@ -122,7 +122,7 @@ static void test_handle_client_requests()
   // Run function
   handle_client_requests(&test_client);
 
-  
+
 
 }
 
