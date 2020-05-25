@@ -16,7 +16,8 @@
  * limitations under the License.
  */
 // #include "config.h"
-#include <malloc.h>
+// #include <malloc.h>
+#include <unistd.h>
 #include <inttypes.h>
 #include <signal.h>
 #include <strings.h>
