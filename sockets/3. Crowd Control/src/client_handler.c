@@ -116,6 +116,11 @@ void * handle_client_requests(void * client_)
       fprintf(stderr, "wrote %d/%d bytes from clients %.3s to %.3s. skipping to next client request.\n", bytes_written, strlen(message), client->name, clients[dest_client_index].name);
       continue;
     }
+
+    // Quit after one iteration if currrently unit testing
+    #if UNIT_TESTING
+      break;
+    #endif
   }
 
   // Close connection to client
