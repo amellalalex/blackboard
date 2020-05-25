@@ -116,7 +116,7 @@ void * handle_client_requests(void * client_)
     if((bytes_written = write(clients[dest_client_index].conn, message, strlen(message))) < (int) strlen(message)) // write() failed
     {
       perror("write() failed");
-      fprintf(stderr, "wrote %d/%d bytes from clients %.3s to %.3s. skipping to next client request.\n", bytes_written, strlen(message), client->name, clients[dest_client_index].name);
+      fprintf(stderr, "wrote %d/%.0lu bytes from clients %.3s to %.3s. skipping to next client request.\n", bytes_written, strlen(message), client->name, clients[dest_client_index].name);
       continue;
     }
 
