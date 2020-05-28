@@ -46,3 +46,8 @@ TARGET_LINK_LIBRARIES(${BIN_TEST}
 SET("BIN_MAPS" "maps")
 SET("SRC_MAPS" "maps.cc")
 ADD_EXECUTABLE(${BIN_MAPS} ${SRC_MAPS})
+
+# IPC client API library
+SET("LIB_API" "api")
+SET("SRC_API" "client_api.c" "client_api.cc")
+ADD_LIBRARY(${LIB_API} ${SRC_API})
