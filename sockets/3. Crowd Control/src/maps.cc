@@ -4,7 +4,12 @@
 #include <string>
 #include <unistd.h>
 
-using namespace std;
+// using namespace std;
+using std::cout;
+using std::endl;
+using std::map;
+using std::pair;
+using std::string;
 
 int serialize_map(map<string, string> map, char ** serial_out);
 int serialize_map(map<int, int> map);
