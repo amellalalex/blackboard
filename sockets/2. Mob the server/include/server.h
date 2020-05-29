@@ -12,7 +12,7 @@
 int server_start();
 
 // Threads
-void * server_start_listening (void * parameters);
+void * server_start_listening (void * parameter1, void * parameter2);
 void * server_start_sending   (void * parameters);
 
 #endif /* end of include guard: SERVER_H */
