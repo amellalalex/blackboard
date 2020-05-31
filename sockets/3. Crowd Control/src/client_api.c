@@ -54,7 +54,14 @@ int ipc_init(char name_[3])
 // Send message to another process
 int ipc_send(char dest[3], char * msg, size_t msg_len)
 {
-  
+  // Create placeholder for message to be sent
+  char msg_final[3 + msg_len];
+
+  // Create message with destination client fronted
+  sprintf(msg_final, "%.3s %*s\0", dest, msg_len, msg);
+
+  // DEBUG
+  printf("Final message is %s\n", msg_final);
 
   // done
   return 0;

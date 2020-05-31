@@ -7,6 +7,11 @@ INCLUDE_DIRECTORIES(
   "${PROJECT_SOURCE_DIR}/../include/cmocka"
 )
 
+# IPC client API library
+SET("LIB_API" "api")
+SET("SRC_API" "client_api.c" "client_api.cc")
+ADD_LIBRARY(${LIB_API} ${SRC_API})
+
 # CMocka library
 SET("LIB_CMOCKA" "cmocka")
 SET("SRC_CMOCKA" "cmocka/cmocka.c")
@@ -30,6 +35,7 @@ SET("SRC_CLI" "client.c")
 ADD_EXECUTABLE(${BIN_CLI} ${SRC_CLI})
 TARGET_LINK_LIBRARIES(${BIN_CLI}
   "pthread"
+  ${LIB_API}
 )
 TARGET_COMPILE_OPTIONS(${BIN_CLI} BEFORE PUBLIC "-g")
 
@@ -46,8 +52,3 @@ TARGET_LINK_LIBRARIES(${BIN_TEST}
 SET("BIN_MAPS" "maps")
 SET("SRC_MAPS" "maps.cc")
 ADD_EXECUTABLE(${BIN_MAPS} ${SRC_MAPS})
-
-# IPC client API library
-SET("LIB_API" "api")
-SET("SRC_API" "client_api.c" "client_api.cc")
-ADD_LIBRARY(${LIB_API} ${SRC_API})
