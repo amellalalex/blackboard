@@ -31,7 +31,7 @@ TARGET_COMPILE_OPTIONS(${BIN_IPC} BEFORE PUBLIC "-g")
 
 # Client binary
 SET("BIN_CLI" "client")
-SET("SRC_CLI" "client.c")
+SET("SRC_CLI" "client_old.c")
 ADD_EXECUTABLE(${BIN_CLI} ${SRC_CLI})
 TARGET_LINK_LIBRARIES(${BIN_CLI}
   "pthread"
