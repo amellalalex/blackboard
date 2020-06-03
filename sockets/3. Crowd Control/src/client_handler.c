@@ -108,6 +108,13 @@ void * handle_client_requests(void * client_)
     // Extract message from request
     for(int x = 4; x < strlen(req); x++) message[x] = req[x];
 
+    //check destination name
+    switch(dest_name){
+      case "pay":
+        message = payload_mission(message);
+        printf("Payload mission written.");
+    }
+
     // Add null termination character to message
     message[strlen(req)] = '\0';
 
