@@ -1,10 +1,11 @@
 /*
-* themaps.cc
+* serialize.cc
 *
-*   Purpose: Deal with Comms to Command translation
-*   Author: Yann Guerin, Alex Amellal
+*   purpose:  serialize a map into a string for simple sending through the IPC
+*   author:   Yann Guerin
 *
 */
+
 
 
 #include <iostream>
