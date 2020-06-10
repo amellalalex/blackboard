@@ -13,6 +13,7 @@
 #include <iterator>
 #include <string>
 #include <unistd.h>
+#include <vector>
 
 using namespace std;
 
@@ -23,6 +24,7 @@ string serialize_StoS(map<string,string> map);
 string serialize_StoI(std::map<string, int> map);
 string serialize_ItoS(std::map<int, string> map);
 string serialize_ItoI(std::map<int, int> map);
+map<string, string> deSerialize(std::string message, int mapSize);
 
 
 int main()
@@ -54,6 +56,13 @@ int main()
 
   string command = serialize_StoI(coordinates);
   cout << "The map in string form is: \n" << command;
+  map<string,string> backto = deSerialize(command, 8);
+  cout << "And back into a map but iterated through is: ";
+  map<string, string>::iterator iter;
+  for(iter = backto.begin(); iter != backto.end(); ++iter)
+  {
+    cout << iter->first << " , " << iter->second << endl;
+  }
 
   // done
   return 0;
@@ -142,4 +151,47 @@ string serialize_ItoI(std::map<int, int> map)
     message = message + cast + "::" + cast2 + "::";
   }
   return message;
+}
+
+map<string, string> deSerialize(std::string message, int mapSize)
+{
+  map<string, string> themap;
+  std::vector<string> word_list;
+  int theSize = 2 * mapSize;
+  cout << "Starting deSerialize\n";
+  int j = 0;
+  for(int x = 0; x < theSize; x++)
+  {
+    cout << "The starting point is " << j;
+    cout << "Starting a new word\n";
+    string word = "";
+    //maybe some sort of while loop, instead of message length, while until stop
+    //track i value and reset starting i value after each word
+    for(int i = 0; i<(message.length() -1); i++)
+    {
+      string check, check1, check2;
+      check1 = message.at(i);
+      check2 = message.at(i+1);
+      check = check1 + check2;
+      if (check.compare("::") == 0)
+      {
+        word_list.push_back(word);
+        cout << word << "\n";
+        break;
+        //cout << word << endl;
+      } else {
+        word = word + message.at(i);
+        message.erase(message.begin() + i);
+        continue;
+      }
+      j = j + 1;
+    }
+  }
+  std::vector<string>::iterator iter;
+  for(iter = word_list.begin(); iter != word_list.end(); std::advance(iter, 2))
+  {
+    string toadd = *iter;
+    themap.insert(pair<string, string>(toadd, toadd));
+  }
+  return themap;
 }
